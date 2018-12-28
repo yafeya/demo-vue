@@ -9,7 +9,9 @@
         :key="customer.name"
       >{{customer.name}}</li>
     </ul>
-    <customer-detail v-if="isCustomerSelected()" v-bind:meta="selectedCustomer"/>
+    <div id="customer-detail-container" v-if="isCustomerSelected()">
+      <customer-detail v-bind:meta="selectedCustomer"/>
+    </div>
   </div>
 </template>
 
@@ -33,7 +35,7 @@ export default {
   },
   methods: {
     isCustomerSelected: function () {
-      return this.selectedCustomer.name !== ''
+      return this.selectedCustomer.name !== undefined && this.selectedCustomer.name !== ''
     },
 
     onselectCustomer: function (customer) {
