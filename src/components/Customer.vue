@@ -10,7 +10,7 @@
       >{{customer.name}}</li>
     </ul>
     <div id="customer-detail-container" v-if="isCustomerSelected()">
-      <customer-detail v-bind:meta="selectedCustomer"/>
+      <customer-detail v-bind:meta="selectedCustomer" v-on:click-detail="onClickDetail($event)"/>
     </div>
   </div>
 </template>
@@ -40,6 +40,10 @@ export default {
 
     onselectCustomer: function (customer) {
       this.selectedCustomer = customer
+    },
+
+    onClickDetail: function (customer) {
+      alert(`clicked customer: ${customer.name}`)
     }
   }
 }

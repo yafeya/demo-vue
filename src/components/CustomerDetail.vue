@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div v-init="meta">
     <div class="content-title">
-        <h4>Detail for Current Customer</h4>
+      <h4>Detail for Current Customer</h4>
     </div>
-    <div class="content-item-title">{{meta.name}}</div>
+    <div class="content-item-title" v-on:click="onclickDetail(meta)">{{meta.name}}</div>
   </div>
 </template>
 
@@ -14,6 +14,31 @@ export default {
   name: 'CustomerDetail',
   props: {
     meta: Customer
+  },
+  mounted: function () {
+    alert('mounted detail')
+  },
+  updated: function () {
+    alert('updated detail')
+  },
+  methods: {
+    onclickDetail: function (detail) {
+      this.$emit('click-detail', detail)
+    }
+  },
+  directives: {
+    init: {
+      componentUpdated: function (el, binding, vnode) {
+        if (
+          binding !== undefined &&
+          binding.value !== undefined &&
+          binding.value instanceof Customer
+        ) {
+          var customer = binding.value
+          alert(`customer-directive prompting out ${customer.name}`)
+        }
+      }
+    }
   }
 }
 </script>
